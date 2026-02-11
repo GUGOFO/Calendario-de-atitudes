@@ -9,7 +9,6 @@ const diaDaSemanas = document.querySelectorAll(".diaDaSemana");
 const quadradosDias = document.querySelectorAll(".quadradoDia");
 
 quadradosDias.forEach(quadrado => {
-
     quadrado.addEventListener("click", evento => {
         quadradosDias.forEach(quadrado => quadrado.style.backgroundColor = "white");
 
@@ -17,7 +16,16 @@ quadradosDias.forEach(quadrado => {
         if(quadrado.classList != "quadradoDia") quadrado = quadrado.parentElement;
         
         quadrado.style.backgroundColor = "rgb(245, 245, 245)";
-        console.log(quadrado);
+
+        const idDoQuadrado = quadrado.id.slice(3);
+
+        for(let i = 0; i < 5; i++){
+            const iezimaTaks = document.getElementById(`tarefa${i}`);
+            const divIezimaTaks = iezimaTaks.parentElement;
+            const matrizDeTasks = matriz[idDoQuadrado][i];
+            console.log(`Na matriz da ${i}: ${matrizDeTasks}`)
+            console.log(`Na tarefa da ${i}: ${iezimaTaks.checked}`)
+        }
     })
 })
 
@@ -48,7 +56,9 @@ function criarCalendario() {
                 <p class="diaDaSemana">${diaSemanaNome}</p>
                 <p class="dia">${diaNumero}</p>
                 <p class="mes">${mesNome}</p>
-            </div>`;
+            </div>`; 
     }
     quadradosDiv.innerHTML = htmlConteudo;
+    const primeiraCaixa = document.getElementById("dia0")
+    primeiraCaixa.style.backgroundColor = "rgb(245, 245, 245)";
 }
