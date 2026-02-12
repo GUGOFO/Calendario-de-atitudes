@@ -1,5 +1,6 @@
 const quadradosDiv = document.getElementById("divQuadradosDia");
 const matriz = Array.from({length: 60}, () => Array(5).fill(false));
+let diaSelecionado = 0;
 
 criarCalendario();
 
@@ -16,24 +17,34 @@ quadradosDias.forEach(quadrado => {
         if(quadrado.classList != "quadradoDia") quadrado = quadrado.parentElement;
         
         quadrado.style.backgroundColor = "rgb(245, 245, 245)";
-
-        const idDoQuadrado = quadrado.id.slice(3);
-
-        for(let i = 0; i < 5; i++){
-            const iezimaTaks = document.getElementById(`tarefa${i}`);
-            const divIezimaTaks = iezimaTaks.parentElement;
-            const matrizDeTasks = matriz[idDoQuadrado][i];
-            console.log(`Na matriz da ${i}: ${matrizDeTasks}`)
-            console.log(`Na tarefa da ${i}: ${iezimaTaks.checked}`)
-        }
+        
+        diaSelecionado = Number(quadrado.id.slice(3));
+        atualizarVisualDasTarefas();
     })
 })
 
-function checar(index){
-    const tarefa = document.getElementById(`tarefa${index}`);
-    const divPai = tarefa.parentElement;
-    
-    tarefa.checked ? divPai.setAttribute("id", "tarefaFeita") : divPai.setAttribute("id", "tarefaNaoFeita") 
+const checkboxes = document.querySelectorAll('#divTasks input[type="checkbox"]');
+
+checkboxes.forEach((checkbox, index) => {
+    checkbox.addEventListener('change', (evento) => {
+        const estaMarcado = evento.target.checked;
+        matriz[diaSelecionado][index] = estaMarcado;
+        atualizarEstiloTarefa(checkbox, estaMarcado);
+    });
+});
+
+function atualizarVisualDasTarefas() {
+    for(let i = 0; i < 5; i++) {
+        const checkbox = document.getElementById(`tarefa${i}`);
+        const estadoSalvo = matriz[diaSelecionado][i];
+        checkbox.checked = estadoSalvo;
+        atualizarEstiloTarefa(checkbox, estadoSalvo);
+    }
+}
+
+function atualizarEstiloTarefa(checkbox, estaMarcado) {
+    const divPai = checkbox.parentElement;
+    estaMarcado ? divPai.classList.replace("tarefaNaoFeita", "tarefaFeita") : divPai.classList.replace("tarefaFeita", "tarefaNaoFeita");
 }
 
 function criarCalendario() {
