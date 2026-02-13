@@ -1,7 +1,11 @@
 const quadradosDiv = document.getElementById("divQuadradosDia");
+const dataRoxa = document.getElementById("dataExata");
 const matriz = Array.from({length: 60}, () => Array(5).fill(false));
+const hoje = new Date();
 let diaSelecionado = 0;
 const coresFases = ["white", "#ff6b6b", "#ff9f43", "#feca57", "#1dd1a1", "#10ac84"];
+const diasSemana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+const nomesMeses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
 
 criarCalendario();
 
@@ -21,6 +25,12 @@ quadradosDias.forEach(quadrado => {
         if(elementoClicado.classList != "quadradoDia") elementoClicado = elementoClicado.parentElement;
 
         elementoClicado.style.border = "2px solid black";
+
+        let datasDoDia = elementoClicado.children
+        let diaSemanaNome = datasDoDia[0].textContent;
+        let mesNome = datasDoDia[1].textContent;
+        let diaNumero = datasDoDia[2].textContent;
+        dataRoxa.textContent = `${diaSemanaNome}, ${mesNome}, ${diaNumero}`;
         
         diaSelecionado = Number(elementoClicado.id.slice(3));
         atualizarVisualDasTarefas();
@@ -59,10 +69,6 @@ function atualizarEstiloTarefa(checkbox, estaMarcado) {
 }
 
 function criarCalendario() {
-    const diasSemana = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
-    const nomesMeses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
-    
-    const hoje = new Date();
     let htmlConteudo = "";
     
     for(let i = 0; i < 60; i++){
@@ -72,6 +78,8 @@ function criarCalendario() {
         let diaNumero = dataFutura.getDate();
         let mesNome = nomesMeses[dataFutura.getMonth()];
         let diaSemanaNome = diasSemana[dataFutura.getDay()];
+
+        if(i == 0) dataRoxa.textContent = `${diaSemanaNome}, ${mesNome}, ${diaNumero}`;
     
         htmlConteudo += `
             <div class="quadradoDia" id="dia${i}" style="border: 2px solid transparent">
@@ -83,5 +91,4 @@ function criarCalendario() {
     quadradosDiv.innerHTML = htmlConteudo;
     const primeiraCaixa = document.getElementById("dia0")
     primeiraCaixa.style.border = "2px solid black";
-    primeiraCaixa.style.backgroundColor = "rgb(245, 245, 245)";
 }
