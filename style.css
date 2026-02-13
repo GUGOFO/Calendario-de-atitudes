@@ -144,6 +144,7 @@ p{
     padding-left: 10px;
     gap: 10px;
     color: rgb(1, 107, 1);
+    text-decoration: line-through;
 
     height: 60px;
     background-color: rgba(28, 202, 28, 0.432);
