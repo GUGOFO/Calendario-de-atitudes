@@ -4,3 +4,6 @@ Um youtuber tinha feito esse projeto com alguns dolares e um vibe-code, vou faze
 
 ## Foto de inspiração
 ![foto da inspiração](/imgs/img_do_yt.png)
+
+## Foto do projeto
+![foto da inspiração](/imgs/img_do_projeto_finalizado.png)

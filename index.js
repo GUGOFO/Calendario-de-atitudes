@@ -1,3 +1,23 @@
+/*   <3 FEITO SEM CHAT, GEMINI, IA OU QUALQUER COISA ASSIM <3
+
+  Caso vc estaja aq para ver se o chat fez isso n se preocupe,
+  O chat n faria um bagulho TÃO FEIO ASSIM kaskskakas
+  Possivelmente tem 99 formais mais eficientes de se fazer isso
+  Bom agora que estamos aqui posso falar um pouco as merdas q eu fiz kaslaksa
+
+  1 - Vou ser sincero aqui, eu tirei a parte que mostra o ano do texto roxo das tasks,
+      pq fiz isso? Pq eu estava com extrema preguiça de reajustar, o resto dos dados 
+      foi simplesmente pegar da div, porem como n tem o ano da div... diz o L
+  2 - Achei bem meh essa borda que fiz para selecionar, creio que seria melhor modificar
+      todas as cores para ficarem um pouco mais escuras no quadrado selecionado, mas achei
+      "o bastante" oq eu fiz
+  3 - Acabei de perceber que eu n troquei a cor do scrow jesusksaas, irei resolver isso no proximo commit
+      quero que fique bonitinho esse aqui com "comentario final", se eu modificar o CSS vai aparecer
+      nele tmn affs, ja ta aparecendo no readme e imagens, mas acho justo nesses
+    
+  Bom obrigado por ler até aqui, agora voce pode tentar fazer sentido do meu codigo :)
+*/
+
 const quadradosDiv = document.getElementById("divQuadradosDia");
 const dataRoxa = document.getElementById("dataExata");
 const matriz = Array.from({length: 60}, () => Array(5).fill(false));
