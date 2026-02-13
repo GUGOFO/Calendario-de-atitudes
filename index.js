@@ -1,6 +1,7 @@
 const quadradosDiv = document.getElementById("divQuadradosDia");
 const matriz = Array.from({length: 60}, () => Array(5).fill(false));
 let diaSelecionado = 0;
+const coresFases = ["white", "#ff6b6b", "#ff9f43", "#feca57", "#1dd1a1", "#10ac84"];
 
 criarCalendario();
 
@@ -11,14 +12,17 @@ const quadradosDias = document.querySelectorAll(".quadradoDia");
 
 quadradosDias.forEach(quadrado => {
     quadrado.addEventListener("click", evento => {
-        quadradosDias.forEach(quadrado => quadrado.style.backgroundColor = "white");
+        quadradosDias.forEach(q => {
+            pintarQuadrado(Number(q.id.slice(3)));
+            q.style.border = "2px solid transparent";
+        });
 
-        let quadrado = evento.target;
-        if(quadrado.classList != "quadradoDia") quadrado = quadrado.parentElement;
+        let elementoClicado = evento.target;
+        if(elementoClicado.classList != "quadradoDia") elementoClicado = elementoClicado.parentElement;
+
+        elementoClicado.style.border = "2px solid black";
         
-        quadrado.style.backgroundColor = "rgb(245, 245, 245)";
-        
-        diaSelecionado = Number(quadrado.id.slice(3));
+        diaSelecionado = Number(elementoClicado.id.slice(3));
         atualizarVisualDasTarefas();
     })
 })
@@ -30,15 +34,22 @@ checkboxes.forEach((checkbox, index) => {
         const estaMarcado = evento.target.checked;
         matriz[diaSelecionado][index] = estaMarcado;
         atualizarEstiloTarefa(checkbox, estaMarcado);
+        pintarQuadrado(diaSelecionado);
     });
 });
+
+function pintarQuadrado(index) {
+    const quantidadeFeita = matriz[index].filter(Boolean).length;
+    const quadrado = document.getElementById(`dia${index}`);
+    quadrado.style.backgroundColor = coresFases[quantidadeFeita];
+}
 
 function atualizarVisualDasTarefas() {
     for(let i = 0; i < 5; i++) {
         const checkbox = document.getElementById(`tarefa${i}`);
         const estadoSalvo = matriz[diaSelecionado][i];
         checkbox.checked = estadoSalvo;
-        atualizarEstiloTarefa(checkbox, estadoSalvo);
+        atualizarEstiloTarefa(checkbox, estadoSalvo);       
     }
 }
 
@@ -63,7 +74,7 @@ function criarCalendario() {
         let diaSemanaNome = diasSemana[dataFutura.getDay()];
     
         htmlConteudo += `
-            <div class="quadradoDia" id="dia${i}">
+            <div class="quadradoDia" id="dia${i}" style="border: 2px solid transparent">
                 <p class="diaDaSemana">${diaSemanaNome}</p>
                 <p class="dia">${diaNumero}</p>
                 <p class="mes">${mesNome}</p>
@@ -71,5 +82,6 @@ function criarCalendario() {
     }
     quadradosDiv.innerHTML = htmlConteudo;
     const primeiraCaixa = document.getElementById("dia0")
+    primeiraCaixa.style.border = "2px solid black";
     primeiraCaixa.style.backgroundColor = "rgb(245, 245, 245)";
 }
